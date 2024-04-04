@@ -35,11 +35,11 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(
   cors({
-    // origin: [
-    //   "http://localhost:5173",
-    //   "https://car-dealership-frontend-bws94vhfu.vercel.app",
-    //   "*",
-    // ],
+    origin: [
+      "http://localhost:5173",
+      "https://car-dealership-frontend-bws94vhfu.vercel.app",
+      "*",
+    ],
     credentials: true,
   })
 );
