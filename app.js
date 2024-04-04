@@ -12,7 +12,12 @@ const app = express();
 const server = require("http").Server(app);
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",
+      "https://car-dealership-frontend-bws94vhfu.vercel.app",
+      "*",
+    ],
+    credentials: true,
   },
 });
 //file upload
