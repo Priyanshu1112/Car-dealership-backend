@@ -32,7 +32,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://car-dealership-frontend-bws94vhfu.vercel.app/",
+      "https://car-dealership-frontend-bws94vhfu.vercel.app",
       "*",
     ],
     credentials: true,
