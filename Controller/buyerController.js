@@ -7,6 +7,7 @@ const {
   generateRefreshToken,
   generateUserTypeToken,
 } = require("../Utils/tokenUtilityFunctions");
+const { removePassword } = require("../Utils/removePassword");
 
 const validateInput = [
   body("email")
@@ -84,20 +85,26 @@ exports.signIn = catchAsyncErrors(async (req, res, next) => {
 
   const buyer = await Buyer.findOne({
     email: email,
-  }).populate({
-    path: "chat",
-    options: { sort: { updatedAt: -1 } }, // Sort chat by updatedAt
-    populate: [
-      {
-        path: "messages",
-        options: { sort: { createdAt: 1 } }, // Sort messages by createdAt
-      },
-      {
-        path: "car_id",
-        select: "image.main.url", // Select only the image.main.url property
-      },
-    ],
-  });
+  })
+    .select("+password")
+    .populate({
+      path: "chat",
+      options: { sort: { updatedAt: -1 } }, // Sort chat by updatedAt
+      populate: [
+        {
+          path: "messages",
+          options: { sort: { createdAt: 1 } }, // Sort messages by createdAt
+        },
+        {
+          path: "car_id",
+          select: "image.main.url", // Select only the image.main.url property
+        },
+        {
+          path: "bargain",
+          options: { sort: { createdAt: 1 } }, // Sort messages by createdAt
+        },
+      ],
+    });
 
   if (!buyer) return next(new ErrorHandler("Email not registered", 401));
 
@@ -109,9 +116,11 @@ exports.signIn = catchAsyncErrors(async (req, res, next) => {
 
   const userType = generateUserTypeToken("Buyer");
 
+  const buyerWithoutPassword = removePassword(buyer.toObject());
+
   return res.status(200).json({
     message: "Buyer signed-in successfully",
-    buyer,
+    buyer: buyerWithoutPassword,
     accessToken,
     refreshToken,
     userType,

@@ -89,7 +89,6 @@ exports.signIn = catchAsyncErrors(async (req, res, next) => {
 
   const dealer = await Dealer.findOne({ email: email })
     .select("+password")
-    .populate("cars")
     .populate({
       path: "chat",
       options: { sort: { updatedAt: -1 } }, // Sort chat by updatedAt
@@ -101,6 +100,10 @@ exports.signIn = catchAsyncErrors(async (req, res, next) => {
         {
           path: "car_id",
           select: "image.main.url", // Select only the image.main.url property
+        },
+        {
+          path: "bargain",
+          options: { sort: { createdAt: 1 } }, // Sort messages by createdAt
         },
       ],
     });
