@@ -116,7 +116,7 @@ exports.buyCar = catchAsyncErrors(async (req, res, next) => {
   let carPrice;
   if (userPresent != -1)
     carPrice = Number(
-      car.bargained[userPresent]?.price != -1 ? car.bargained.price : car.price
+      car.bargained[userPresent]?.price != -1 ? car.bargained[userPresent].price : car.price
     );
   else carPrice = car.price;
 
