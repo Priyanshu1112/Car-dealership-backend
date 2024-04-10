@@ -17,10 +17,12 @@ exports.makePayment = catchAsyncErrors(async (req, res, next) => {
   const { carId, userId } = req.body;
   const car = await Car.findById(carId);
 
+  console.log({ carId, userId });
   const userPresent = car.bargained?.findIndex(
     (bargain) => bargain.id == userId
   );
 
+  console.log({ userPresent });
   let carPrice;
   if (userPresent != -1)
     carPrice = Number(
@@ -28,6 +30,7 @@ exports.makePayment = catchAsyncErrors(async (req, res, next) => {
     );
   else carPrice = car.price;
 
+  console.log({ carPrice });
   try {
     const order = await razorpay.orders.create({
       amount: carPrice,
