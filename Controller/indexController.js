@@ -38,7 +38,7 @@ exports.getCurrentUser = catchAsyncErrors(async (req, res, next) => {
         },
         {
           path: "car_id",
-          select: "image.main.url", // Select only the image.main.url property
+          select: "image.main.url buyer_id", // Select only the image.main.url property
         },
         {
           path: "bargain",
@@ -57,7 +57,7 @@ exports.getCurrentUser = catchAsyncErrors(async (req, res, next) => {
         },
         {
           path: "car_id",
-          select: "image.main.url", // Select only the image.main.url property
+          select: "image.main.url buyer_id", // Select only the image.main.url property
         },
         {
           path: "bargain",
