@@ -14,6 +14,7 @@ const io = require("socket.io")(server, {
   cors: {
     origin: [
       "http://localhost:5173",
+      "http://localhost:5174",
       "https://car-dealership-frontend.vercel.app",
     ],
     credentials: true,
