@@ -18,7 +18,7 @@ exports.onConnect = (socket) => {
 
   socket.on("create-chat", async (data) => {
     const res = await Chat.createChat(data);
-    console.log(res.message);
+    console.log({res});
     if (res.status == 200 || res.status == 201)
       socket.to(data.dealer_id).emit("chat-created", res);
     return socket.emit("chat-created", res);

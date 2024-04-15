@@ -107,7 +107,7 @@ exports.signIn = catchAsyncErrors(async (req, res, next) => {
         },
       ],
     });
-  // console.log(admin);
+  console.log({ dealer, email });
 
   if (!dealer) return next(new ErrorHandler("Email not registered", 401));
 
